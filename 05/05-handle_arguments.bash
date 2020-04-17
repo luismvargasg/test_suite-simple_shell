@@ -1,9 +1,9 @@
 #!/bin/bash
 #
-# test to check if your shell handle comments with sapces and commands
+# run /bin/ls -la
 
-command="ls        #this is a test"
-tmp_file="tester_tmp_file_$RANDOM"
+command="/bin/ls -la"
+tmp_file="checker_tmp_file_$RANDOM"
 
 # clean up
 stop_shell
@@ -11,8 +11,8 @@ rm -f $tmp_file
 
 # create a pseudo random file
 touch $tmp_file
-# run command
-echo "$command" | $SHELL > $OUTPUTFILE 2> /dev/null &
+# send commands
+echo "$command" | $SHELL > $OUTPUTFILE 2> /dev/null & 
 
 # wait a little bit
 $SLEEP $SLEEPSECONDS
@@ -20,9 +20,9 @@ $SLEEP $SLEEPSECONDS
 # check the result
 nmatch=`cat $OUTPUTFILE | grep -c "$tmp_file"`
 if [ $nmatch -eq 1 ]; then
-		print_ok
+       print_ok
 else
-		print_ko
+       print_ko
 fi
 
 # clean up
